@@ -1,6 +1,6 @@
 # natakos_mini_mvp
 
-A new Flutter project.
+A new Flutter project by Nafi.
 
 ## Getting Started
 
