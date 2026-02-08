@@ -20,80 +20,10 @@ class HomePage extends StatelessWidget {
           _searchField(),
           SizedBox(height: 36,),
           _categoriesSection(),
-
+          SizedBox(height: 50,),
+          _recommendationSection(),
         ],
       ),
-    );
-  }
-
-  Column _categoriesSection() {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-
-      children: [
-        Padding(
-          padding: const EdgeInsets.only(left: 20),
-          child: Text(
-            'Category',
-            style: TextStyle(
-                color: Colors.black54,
-                fontSize: 18,
-                fontWeight: FontWeight.bold
-            ),
-          ),
-        ),
-        SizedBox(height: 12,),
-
-        Container(
-          height: 150,
-          child: ListView.separated(
-              scrollDirection: Axis.horizontal,
-
-              padding: EdgeInsets.only(
-                left: 20,
-                right: 20,
-              ),
-
-              itemCount: categories.length,
-              separatorBuilder: (context, index) => SizedBox(width: 25,),
-
-              itemBuilder: (context, index) {
-                return Container(
-                  width: 100,
-                  decoration: BoxDecoration(
-                    color: categories[index].boxColor.withValues(alpha: 0.4),
-                    borderRadius: BorderRadius.circular(10),
-                  ),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: [
-                      Container(
-                        width: 50,
-                        height: 50,
-                        decoration: BoxDecoration(
-                          color: Colors.white,
-                          shape: BoxShape.circle,
-                        ),
-                        child: Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: SvgPicture.asset(categories[index].iconPath),
-                        ),
-                      ),
-                      Text(
-                        categories[index].name,
-                        style: TextStyle(
-                          color: Colors.black38,
-                          fontWeight: FontWeight.w400,
-                          fontSize: 14,
-                        ),
-                      ),
-                    ],
-                  ),
-                );
-              }
-          ),
-        ),
-      ],
     );
   }
 
@@ -215,6 +145,148 @@ class HomePage extends StatelessWidget {
             ),
           ),
         )
+    );
+  }
+
+  Column _categoriesSection() {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+
+      children: [
+        Padding(
+          padding: const EdgeInsets.only(left: 20),
+          child: Text(
+            'Mau Masak Apa Bray?',
+            style: TextStyle(
+                color: Colors.black54,
+                fontSize: 18,
+                fontWeight: FontWeight.bold
+            ),
+          ),
+        ),
+        SizedBox(height: 12,),
+
+        Container(
+          height: 150,
+          child: ListView.separated(
+              scrollDirection: Axis.horizontal,
+
+              padding: EdgeInsets.only(
+                left: 20,
+                right: 20,
+              ),
+
+              itemCount: categories.length,
+              separatorBuilder: (context, index) => SizedBox(width: 25,),
+
+              itemBuilder: (context, index) {
+                return Container(
+                  width: 100,
+                  decoration: BoxDecoration(
+                    color: categories[index].boxColor.withValues(alpha: 0.4),
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      Container(
+                        width: 50,
+                        height: 50,
+                        decoration: BoxDecoration(
+                          color: Colors.white,
+                          shape: BoxShape.circle,
+                        ),
+                        child: Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: SvgPicture.asset(categories[index].iconPath),
+                        ),
+                      ),
+                      Text(
+                        categories[index].name,
+                        style: TextStyle(
+                          color: Colors.black38,
+                          fontWeight: FontWeight.w400,
+                          fontSize: 14,
+                        ),
+                      ),
+                    ],
+                  ),
+                );
+              }
+          ),
+        ),
+      ],
+    );
+  }
+
+  Column _recommendationSection() {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+
+      children: [
+        Padding(
+          padding: const EdgeInsets.only(left: 20),
+          child: Text(
+            'Spill Diet Favorit Lo',
+            style: TextStyle(
+                color: Colors.black54,
+                fontSize: 22,
+                fontWeight: FontWeight.bold
+            ),
+          ),
+        ),
+        SizedBox(height: 12,),
+
+        Container(
+          height: 240,
+          child: ListView.separated(
+              scrollDirection: Axis.horizontal,
+
+              padding: EdgeInsets.only(
+                left: 20,
+                right: 20,
+              ),
+
+              itemCount: categories.length,
+              separatorBuilder: (context, index) => SizedBox(width: 25,),
+
+              itemBuilder: (context, index) {
+                return Container(
+                  width: 100,
+                  decoration: BoxDecoration(
+                    color: categories[index].boxColor.withValues(alpha: 0.4),
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      Container(
+                        width: 50,
+                        height: 50,
+                        decoration: BoxDecoration(
+                          color: Colors.white,
+                          shape: BoxShape.circle,
+                        ),
+                        child: Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: SvgPicture.asset(categories[index].iconPath),
+                        ),
+                      ),
+                      Text(
+                        categories[index].name,
+                        style: TextStyle(
+                          color: Colors.black38,
+                          fontWeight: FontWeight.w400,
+                          fontSize: 14,
+                        ),
+                      ),
+                    ],
+                  ),
+                );
+              }
+          ),
+        ),
+      ],
     );
   }
 }

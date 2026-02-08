@@ -42,7 +42,7 @@ class CategoryModel {
       CategoryModel(
         name: 'Smoothies',
         iconPath: 'assets/icons/orange-snacks.svg',
-        boxColor: Color(0xffEEA4CE)
+        boxColor: Color(0xffA17F73FF)
       )
     );
 
