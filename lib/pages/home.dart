@@ -20,11 +20,11 @@ class HomePage extends StatelessWidget {
 
         children: [
           _searchField(),
-          SizedBox(height: 36,),
+          const SizedBox(height: 36,),
           _categoriesSection(),
-          SizedBox(height: 50,),
+          const SizedBox(height: 50,),
           _recommendationSection(),
-          SizedBox(height: 50,),
+          const SizedBox(height: 50,),
           _dietSection(),
         ],
       ),
@@ -328,7 +328,7 @@ class HomePage extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
 
       children: [
-        // Diet Recommendation Title
+        // Popular Foods Title
         Padding(
           padding: const EdgeInsets.only(left: 20),
           child: Text(
@@ -342,82 +342,82 @@ class HomePage extends StatelessWidget {
         ),
         SizedBox(height: 12,),
 
-        // Diet Cards Container
-        Container(
-          height: 250,
-          child: ListView.separated(
-              scrollDirection: Axis.horizontal,
+        // Popular Foods List
+        ListView.separated(
+          shrinkWrap: true,
+          physics: NeverScrollableScrollPhysics(),
 
-              padding: EdgeInsets.only(
-                left: 20,
-                right: 20,
+          scrollDirection: Axis.vertical,
+
+          padding: EdgeInsets.only(
+            left: 20,
+            right: 20,
+          ),
+
+          itemCount: diets.length,
+          separatorBuilder: (context, index) => SizedBox(width: 25,),
+
+          // Individual Card
+          itemBuilder: (context, index) {
+            return Container(
+              width: 210,
+              decoration: BoxDecoration(
+                color: diets[index].boxColor.withValues(alpha: 0.4),
+                borderRadius: BorderRadius.circular(24),
               ),
 
-              itemCount: diets.length,
-              separatorBuilder: (context, index) => SizedBox(width: 25,),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  SvgPicture.asset(diets[index].iconPath),
 
-              // Individual Card
-              itemBuilder: (context, index) {
-                return Container(
-                  width: 210,
-                  decoration: BoxDecoration(
-                    color: diets[index].boxColor.withValues(alpha: 0.4),
-                    borderRadius: BorderRadius.circular(24),
-                  ),
-
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  Column(
                     children: [
-                      SvgPicture.asset(diets[index].iconPath),
-
-                      Column(
-                        children: [
-                          Text(
-                            diets[index].name,
-                            style: TextStyle(
-                              color: Colors.black45,
-                              fontWeight: FontWeight.bold,
-                              fontSize: 16,
-                            ),
-                          ),
-                          Text(
-                            diets[index].description,
-                            style: TextStyle(
-                              color: Colors.black38,
-                              fontWeight: FontWeight.w400,
-                              fontSize: 12,
-                            ),
-                          ),
-                        ],
-                      ),
-                      Container(
-                        height: 45,
-                        width: 130,
-                        child: Center(
-                          child: Text(
-                            'Tengok',
-                            style: TextStyle(
-                                color: diets[index].viewIsSelected ? Colors.white : const Color(0xffC58BF2),
-                                fontWeight: FontWeight.w600,
-                                fontSize: 14
-                            ),
-                          ),
+                      Text(
+                        diets[index].name,
+                        style: TextStyle(
+                          color: Colors.black45,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 16,
                         ),
-                        decoration: BoxDecoration(
-                            gradient: LinearGradient(
-                                colors: [
-                                  diets[index].viewIsSelected ? const Color(0xff9DCEFF) : Colors.transparent,
-                                  diets[index].viewIsSelected ? const Color(0xff92A3FD) : Colors.transparent
-                                ]
-                            ),
-                            borderRadius: BorderRadius.circular(50)
+                      ),
+                      Text(
+                        diets[index].description,
+                        style: TextStyle(
+                          color: Colors.black38,
+                          fontWeight: FontWeight.w400,
+                          fontSize: 12,
                         ),
                       ),
                     ],
                   ),
-                );
-              }
-          ),
+                  Container(
+                    height: 45,
+                    width: 130,
+                    child: Center(
+                      child: Text(
+                        'Tengok',
+                        style: TextStyle(
+                            color: diets[index].viewIsSelected ? Colors.white : const Color(0xffC58BF2),
+                            fontWeight: FontWeight.w600,
+                            fontSize: 14
+                        ),
+                      ),
+                    ),
+                    decoration: BoxDecoration(
+                        gradient: LinearGradient(
+                            colors: [
+                              diets[index].viewIsSelected ? const Color(0xff9DCEFF) : Colors.transparent,
+                              diets[index].viewIsSelected ? const Color(0xff92A3FD) : Colors.transparent
+                            ]
+                        ),
+                        borderRadius: BorderRadius.circular(50)
+                    ),
+                  ),
+                ],
+              ),
+            );
+          }
         ),
       ],
     );
