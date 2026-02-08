@@ -6,7 +6,25 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(),
+      appBar: AppBar(
+        title: Text(
+          'Alexandra',
+          style: TextStyle(
+            color: Colors.black87,
+            fontSize: 20,
+            fontWeight: FontWeight.bold
+          )
+        ),
+        backgroundColor: Colors.white,
+        centerTitle: true,
+        leading: Container(
+          margin: EdgeInsets.all(10),
+          decoration: BoxDecoration(
+            color: Colors.lightGreenAccent,
+            borderRadius: BorderRadius.circular(10)
+          ),
+        ),
+      ),
     );
   }
 }
