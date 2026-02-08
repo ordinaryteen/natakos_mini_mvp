@@ -17,18 +17,20 @@ class HomePage extends StatelessWidget {
       appBar: appBar(),
 
       backgroundColor: Colors.white,
-      body: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
+      body: SingleChildScrollView(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
 
-        children: [
-          _searchField(),
-          const SizedBox(height: 36,),
-          _categoriesSection(),
-          const SizedBox(height: 50,),
-          _recommendationSection(),
-          const SizedBox(height: 50,),
-          _dietSection(),
-        ],
+          children: [
+            _searchField(),
+            const SizedBox(height: 36,),
+            _categoriesSection(),
+            const SizedBox(height: 50,),
+            _recommendationSection(),
+            const SizedBox(height: 50,),
+            _dietSection(),
+          ],
+        ),
       ),
     );
   }
@@ -347,6 +349,7 @@ class HomePage extends StatelessWidget {
         // Popular Foods List
         ListView.separated(
           shrinkWrap: true,
+          physics: const NeverScrollableScrollPhysics(),
 
           padding: EdgeInsets.only(
             left: 20,
