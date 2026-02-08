@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:natakos_mini_mvp/models/category_model.dart';
+import 'package:natakos_mini_mvp/models/diet_model.dart';
 
 class HomePage extends StatelessWidget {
   HomePage({super.key});
 
   final List<CategoryModel> categories = CategoryModel.getCategory();
+  final List<DietModel> diets = DietModel.getDiet();
 
   @override
   Widget build(BuildContext context) {
@@ -22,6 +24,8 @@ class HomePage extends StatelessWidget {
           _categoriesSection(),
           SizedBox(height: 50,),
           _recommendationSection(),
+          SizedBox(height: 50,),
+          _dietSection(),
         ],
       ),
     );
@@ -224,6 +228,7 @@ class HomePage extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
 
       children: [
+        // Diet Recommendation Title
         Padding(
           padding: const EdgeInsets.only(left: 20),
           child: Text(
@@ -237,8 +242,9 @@ class HomePage extends StatelessWidget {
         ),
         SizedBox(height: 12,),
 
+        // Diet Cards Container
         Container(
-          height: 240,
+          height: 250,
           child: ListView.separated(
               scrollDirection: Axis.horizontal,
 
@@ -247,37 +253,164 @@ class HomePage extends StatelessWidget {
                 right: 20,
               ),
 
-              itemCount: categories.length,
+              itemCount: diets.length,
               separatorBuilder: (context, index) => SizedBox(width: 25,),
 
+              // Individual Card
               itemBuilder: (context, index) {
                 return Container(
-                  width: 100,
+                  width: 210,
                   decoration: BoxDecoration(
-                    color: categories[index].boxColor.withValues(alpha: 0.4),
-                    borderRadius: BorderRadius.circular(10),
+                    color: diets[index].boxColor.withValues(alpha: 0.4),
+                    borderRadius: BorderRadius.circular(24),
                   ),
+
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
+                      SvgPicture.asset(diets[index].iconPath),
+
+                      Column(
+                        children: [
+                          Text(
+                            diets[index].name,
+                            style: TextStyle(
+                              color: Colors.black45,
+                              fontWeight: FontWeight.bold,
+                              fontSize: 16,
+                            ),
+                          ),
+                          Text(
+                            diets[index].description,
+                            style: TextStyle(
+                              color: Colors.black38,
+                              fontWeight: FontWeight.w400,
+                              fontSize: 12,
+                            ),
+                          ),
+                        ],
+                      ),
                       Container(
-                        width: 50,
-                        height: 50,
-                        decoration: BoxDecoration(
-                          color: Colors.white,
-                          shape: BoxShape.circle,
+                        height: 45,
+                        width: 130,
+                        child: Center(
+                          child: Text(
+                            'Tengok',
+                            style: TextStyle(
+                                color: diets[index].viewIsSelected ? Colors.white : const Color(0xffC58BF2),
+                                fontWeight: FontWeight.w600,
+                                fontSize: 14
+                            ),
+                          ),
                         ),
-                        child: Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: SvgPicture.asset(categories[index].iconPath),
+                        decoration: BoxDecoration(
+                            gradient: LinearGradient(
+                                colors: [
+                                  diets[index].viewIsSelected ? const Color(0xff9DCEFF) : Colors.transparent,
+                                  diets[index].viewIsSelected ? const Color(0xff92A3FD) : Colors.transparent
+                                ]
+                            ),
+                            borderRadius: BorderRadius.circular(50)
                         ),
                       ),
-                      Text(
-                        categories[index].name,
-                        style: TextStyle(
-                          color: Colors.black38,
-                          fontWeight: FontWeight.w400,
-                          fontSize: 14,
+                    ],
+                  ),
+                );
+              }
+          ),
+        ),
+      ],
+    );
+  }
+
+  Column _dietSection() {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+
+      children: [
+        // Diet Recommendation Title
+        Padding(
+          padding: const EdgeInsets.only(left: 20),
+          child: Text(
+            'Spill Diet Favorit Lo',
+            style: TextStyle(
+                color: Colors.black54,
+                fontSize: 22,
+                fontWeight: FontWeight.bold
+            ),
+          ),
+        ),
+        SizedBox(height: 12,),
+
+        // Diet Cards Container
+        Container(
+          height: 250,
+          child: ListView.separated(
+              scrollDirection: Axis.horizontal,
+
+              padding: EdgeInsets.only(
+                left: 20,
+                right: 20,
+              ),
+
+              itemCount: diets.length,
+              separatorBuilder: (context, index) => SizedBox(width: 25,),
+
+              // Individual Card
+              itemBuilder: (context, index) {
+                return Container(
+                  width: 210,
+                  decoration: BoxDecoration(
+                    color: diets[index].boxColor.withValues(alpha: 0.4),
+                    borderRadius: BorderRadius.circular(24),
+                  ),
+
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      SvgPicture.asset(diets[index].iconPath),
+
+                      Column(
+                        children: [
+                          Text(
+                            diets[index].name,
+                            style: TextStyle(
+                              color: Colors.black45,
+                              fontWeight: FontWeight.bold,
+                              fontSize: 16,
+                            ),
+                          ),
+                          Text(
+                            diets[index].description,
+                            style: TextStyle(
+                              color: Colors.black38,
+                              fontWeight: FontWeight.w400,
+                              fontSize: 12,
+                            ),
+                          ),
+                        ],
+                      ),
+                      Container(
+                        height: 45,
+                        width: 130,
+                        child: Center(
+                          child: Text(
+                            'Tengok',
+                            style: TextStyle(
+                                color: diets[index].viewIsSelected ? Colors.white : const Color(0xffC58BF2),
+                                fontWeight: FontWeight.w600,
+                                fontSize: 14
+                            ),
+                          ),
+                        ),
+                        decoration: BoxDecoration(
+                            gradient: LinearGradient(
+                                colors: [
+                                  diets[index].viewIsSelected ? const Color(0xff9DCEFF) : Colors.transparent,
+                                  diets[index].viewIsSelected ? const Color(0xff92A3FD) : Colors.transparent
+                                ]
+                            ),
+                            borderRadius: BorderRadius.circular(50)
                         ),
                       ),
                     ],
