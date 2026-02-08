@@ -2,12 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:natakos_mini_mvp/models/category_model.dart';
 import 'package:natakos_mini_mvp/models/diet_model.dart';
+import 'package:natakos_mini_mvp/models/popular_model.dart';
 
 class HomePage extends StatelessWidget {
   HomePage({super.key});
 
   final List<CategoryModel> categories = CategoryModel.getCategory();
   final List<DietModel> diets = DietModel.getDiet();
+  final List<PopularDietsModel> popularDiets = PopularDietsModel.getPopularDiets();
 
   @override
   Widget build(BuildContext context) {
@@ -332,10 +334,10 @@ class HomePage extends StatelessWidget {
         Padding(
           padding: const EdgeInsets.only(left: 20),
           child: Text(
-            'Spill Diet Favorit Lo',
+            'Panganan e wong FOMO',
             style: TextStyle(
                 color: Colors.black54,
-                fontSize: 22,
+                fontSize: 18,
                 fontWeight: FontWeight.bold
             ),
           ),
@@ -345,36 +347,50 @@ class HomePage extends StatelessWidget {
         // Popular Foods List
         ListView.separated(
           shrinkWrap: true,
-          physics: NeverScrollableScrollPhysics(),
-
-          scrollDirection: Axis.vertical,
 
           padding: EdgeInsets.only(
             left: 20,
             right: 20,
           ),
 
-          itemCount: diets.length,
+          itemCount: popularDiets.length,
           separatorBuilder: (context, index) => SizedBox(width: 25,),
 
           // Individual Card
           itemBuilder: (context, index) {
             return Container(
-              width: 210,
+              height: 100,
+
               decoration: BoxDecoration(
-                color: diets[index].boxColor.withValues(alpha: 0.4),
-                borderRadius: BorderRadius.circular(24),
+                  color: popularDiets[index].boxIsSelected ?
+                  Colors.white : Colors.transparent,
+                  borderRadius: BorderRadius.circular(16),
+                  boxShadow: popularDiets[index].boxIsSelected ? [
+                    BoxShadow(
+                        color: const Color(0xff1D1617).withOpacity(0.07),
+                        offset: const Offset(0, 10),
+                        blurRadius: 40,
+                        spreadRadius: 0
+                    )
+                  ] : []
               ),
 
-              child: Column(
+              child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
-                  SvgPicture.asset(diets[index].iconPath),
+                  SvgPicture.asset(
+                    popularDiets[index].iconPath,
+                    width: 65,
+                    height: 65,
+                  ),
 
                   Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+
                     children: [
                       Text(
-                        diets[index].name,
+                        popularDiets[index].name,
                         style: TextStyle(
                           color: Colors.black45,
                           fontWeight: FontWeight.bold,
@@ -382,7 +398,7 @@ class HomePage extends StatelessWidget {
                         ),
                       ),
                       Text(
-                        diets[index].description,
+                        popularDiets[index].level + ' | ' + popularDiets[index].duration + ' | ' + popularDiets[index].calorie,
                         style: TextStyle(
                           color: Colors.black38,
                           fontWeight: FontWeight.w400,
@@ -391,29 +407,16 @@ class HomePage extends StatelessWidget {
                       ),
                     ],
                   ),
-                  Container(
-                    height: 45,
-                    width: 130,
-                    child: Center(
-                      child: Text(
-                        'Tengok',
-                        style: TextStyle(
-                            color: diets[index].viewIsSelected ? Colors.white : const Color(0xffC58BF2),
-                            fontWeight: FontWeight.w600,
-                            fontSize: 14
-                        ),
-                      ),
+                  GestureDetector(
+                    onTap: () {
+                      print('${popularDiets[index].name} pressed');
+                    },
+                    child: SvgPicture.asset(
+                      'assets/icons/button.svg',
+                      width: 32,
+                      height: 32,
                     ),
-                    decoration: BoxDecoration(
-                        gradient: LinearGradient(
-                            colors: [
-                              diets[index].viewIsSelected ? const Color(0xff9DCEFF) : Colors.transparent,
-                              diets[index].viewIsSelected ? const Color(0xff92A3FD) : Colors.transparent
-                            ]
-                        ),
-                        borderRadius: BorderRadius.circular(50)
-                    ),
-                  ),
+                  )
                 ],
               ),
             );
